@@ -19,6 +19,7 @@ COMMON_DEFINITIONS =                                      \
 	-DVERSION_MINOR=$(VERSION_MINOR)                      \
 	-DVERSION_PATCH=$(VERSION_PATCH)                      \
 	-DVERSION=$(VERSION)                                  \
+	-DLWEXT4_BUILD_SHARED_LIB=OFF 						  \
 
 define generate_common
 	rm -R -f build_$(1)
@@ -62,6 +63,21 @@ msp430:
 mingw:
 	$(call generate_common,$@,-DWIN32=1)
 	
+musl-generic-aarch64:
+	export ARCH=aarch64
+	cp toolchain/musl-generic.cmake toolchain/musl-generic-aarch64.cmake 
+	$(call generate_common,$@)
+
+musl-generic-riscv64:
+	export ARCH=riscv64
+	cp toolchain/musl-generic.cmake toolchain/musl-generic-riscv64.cmake 
+	$(call generate_common,$@)
+
+musl-generic-x86_64:
+	export ARCH=x86_64
+	cp toolchain/musl-generic.cmake toolchain/musl-generic-x86_64.cmake 
+	$(call generate_common,$@)
+
 lib_only:
 	rm -R -f build_lib_only
 	mkdir build_lib_only
