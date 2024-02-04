@@ -4,6 +4,7 @@ else()
     set(ARCH $ENV{ARCH})
 endif()
 
+message(STATUS "Using ARCH from environment: $ENV{ARCH}")
 # Name of the target
 set(CMAKE_SYSTEM_NAME "Linux")
 set(CMAKE_SYSTEM_PROCESSOR ${ARCH})
